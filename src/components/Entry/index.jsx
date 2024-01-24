@@ -25,9 +25,7 @@ export default function Entry({ body, setEntryArray }) {
             dateTime: currentDate
           }),
           headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST'
+            'Content-type': 'application/json; charset=UTF-8'
           }
         }
         const response = await fetch("http://localhost:5147/api/Diary/CreateEdit", options)
@@ -55,11 +53,7 @@ export default function Entry({ body, setEntryArray }) {
     const deleteEntry = async () => {
       try {
         const options = {
-          method: "DELETE",
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'DELETE'
-          }
+          method: "DELETE"
         }
         const response = await fetch(`http://localhost:5147/api/Diary/Delete?id=${body.id}`, options)
         if (response.status == 200) {
