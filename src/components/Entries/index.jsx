@@ -7,7 +7,7 @@ export default function Entries({entryArray,setEntryArray}) {
       const options = {
         headers: {
           'Access-Control-Allow-Origin':'*',
-            'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'
+          'Access-Control-Allow-Methods':'GET'
         }
       }
       const response = await fetch("http://localhost:5147/api/Diary/GetAll", options)

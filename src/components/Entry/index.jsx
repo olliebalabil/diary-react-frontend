@@ -26,13 +26,15 @@ export default function Entry({ body, setEntryArray }) {
           }),
           headers: {
             'Content-type': 'application/json; charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST'
           }
         }
         const response = await fetch("http://localhost:5147/api/Diary/CreateEdit", options)
         if (response.status == 200) {
-          setEntryArray(prevState => prevState.map(el => 
-            el.id == body.id ? {...el,title:title,content:content, dateTime:currentDate} : el
-            ))
+          setEntryArray(prevState => prevState.map(el =>
+            el.id == body.id ? { ...el, title: title, content: content, dateTime: currentDate } : el
+          ))
         }
       } catch (err) {
         console.error({ error: err.message })
@@ -53,7 +55,11 @@ export default function Entry({ body, setEntryArray }) {
     const deleteEntry = async () => {
       try {
         const options = {
-          method: "DELETE"
+          method: "DELETE",
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'DELETE'
+          }
         }
         const response = await fetch(`http://localhost:5147/api/Diary/Delete?id=${body.id}`, options)
         if (response.status == 200) {
@@ -65,16 +71,16 @@ export default function Entry({ body, setEntryArray }) {
     }
     deleteEntry()
   }
- 
+
   return (
     <>
       {showEditForm ?
         <form onClick={toggleShowEditForm} onSubmit={handleSubmit} className='entry-form'>
-          <input type="text" placeholder="Title"onChange={handleTitle} value={title} />
-          <textarea  onChange={handleContent} value={content} placeholder='Note'></textarea>
+          <input type="text" placeholder="Title" onChange={handleTitle} value={title} />
+          <textarea onChange={handleContent} value={content} placeholder='Note'></textarea>
           <input type="submit" value="Save Changes" className='edit-submit-button' />
         </form>
-        : 
+        :
         <div className="entry" onClick={toggleShowEditForm}>
           <h2>{body.title}</h2>
           <p>{body.content}</p>

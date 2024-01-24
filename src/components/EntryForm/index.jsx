@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function EntryForm({setEntryArray}) {
+export default function EntryForm({ setEntryArray }) {
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
 
@@ -25,7 +25,9 @@ export default function EntryForm({setEntryArray}) {
             dateTime: currentDate
           }),
           headers: {
-            'Content-type': 'application/json; charset=UTF-8'
+            'Content-type': 'application/json; charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST'
           }
         }
         const response = await fetch("http://localhost:5147/api/Diary/CreateEdit", options)
@@ -36,7 +38,7 @@ export default function EntryForm({setEntryArray}) {
           setContent("")
         }
       } catch (err) {
-        console.error({error: err.message})
+        console.error({ error: err.message })
       }
     }
 
@@ -46,7 +48,7 @@ export default function EntryForm({setEntryArray}) {
     }
   }
 
- 
+
   return (
     <form onSubmit={handleSubmit} className='entry-form'>
       <input type='text' placeholder='Title' value={title} onChange={handleTitle}></input>
