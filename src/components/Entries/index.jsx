@@ -4,7 +4,13 @@ import Entry from '../Entry'
 export default function Entries({entryArray,setEntryArray}) {
   useEffect(()=>{
     const getEntries = async () => {
-      const response = await fetch("http://localhost:5147/api/Diary/GetAll")
+      const options = {
+        method: "GET",
+        headers: {
+          'Access-Control-Allow-Origin': 'https://diary-ek74.onrender.com/'
+        }
+      }
+      const response = await fetch("http://localhost:5147/api/Diary/GetAll", options)
       const data = await response.json()
       if (response.status == 200) {
         setEntryArray(data.value)
